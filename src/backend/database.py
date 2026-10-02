@@ -53,8 +53,8 @@ def init_database():
             teachers_collection.insert_one(
                 {"_id": teacher["username"], **teacher})
 
-    # Initialize example announcements if empty
-    if announcements_collection.count_documents({}) == 0:
+    # Initialize example announcements only when the collection is first created
+    if "announcements" not in db.list_collection_names():
         for announcement in initial_announcements(date.today()):
             announcements_collection.insert_one(announcement)
 
