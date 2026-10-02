@@ -1040,9 +1040,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    if (announcementForm.dataset.saving === "true") return;
     const url = editingAnnouncementId
       ? `/announcements/${encodeURIComponent(editingAnnouncementId)}?${authQuery()}`
       : `/announcements?${authQuery()}`;
+    const submitButton = announcementForm.querySelector('[type="submit"]');
+    announcementForm.dataset.saving = "true";
+    submitButton.disabled = true;
     try {
       const response = await fetch(url, {
         method: editingAnnouncementId ? "PUT" : "POST",
@@ -1060,6 +1064,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error saving announcement:", error);
       showAnnouncementsMessage("Could not save the announcement.", "error");
+    } finally {
+      delete announcementForm.dataset.saving;
+      submitButton.disabled = false;
     }
   }
 
