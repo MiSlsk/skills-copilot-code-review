@@ -12,15 +12,7 @@
     />
   </head>
   <body>
-    <aside class="announcement-banner" aria-label="Announcement" id="registration-announcement" hidden>
-      📢 Activity registration is open until December 31, 2025. Don't lose your spot!
-    </aside>
-    <script>
-      const deadline = new Date("2025-12-31T23:59:59");
-      if (new Date() <= deadline) {
-        document.getElementById("registration-announcement").hidden = false;
-      }
-    </script>
+    <div id="announcement-banners" aria-live="polite"></div>
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
@@ -31,6 +23,10 @@
             <span>Login</span>
           </button>
           <div id="user-info" class="hidden">
+            <button id="manage-announcements-button" class="icon-button" aria-haspopup="dialog">
+              <span aria-hidden="true">📢</span>
+              <span>Announcements</span>
+            </button>
             <span id="display-name"></span>
             <button id="logout-button">Logout</button>
           </div>
@@ -140,6 +136,42 @@
           <button type="submit">Login</button>
         </form>
         <div id="login-message" class="hidden message"></div>
+      </div>
+    </div>
+
+    <!-- Announcements Dialog -->
+    <div id="announcements-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="announcements-title">
+      <div class="modal-content announcements-dialog">
+        <button type="button" class="close-announcements-modal" aria-label="Close announcements dialog">&times;</button>
+        <div class="announcements-header">
+          <h3 id="announcements-title">📢 Manage Announcements</h3>
+          <button type="button" id="new-announcement-button" class="primary-action">+ New</button>
+        </div>
+
+        <form id="announcement-form" class="hidden" novalidate>
+          <h4 id="announcement-form-title">New announcement</h4>
+          <div class="form-group">
+            <label for="announcement-message">Message</label>
+            <textarea id="announcement-message" rows="3" maxlength="500" required placeholder="What would you like to tell everyone?"></textarea>
+          </div>
+          <div class="date-row">
+            <div class="form-group">
+              <label for="announcement-start">Start date <small>(optional)</small></label>
+              <input type="date" id="announcement-start" />
+            </div>
+            <div class="form-group">
+              <label for="announcement-expires">Expiration date <small>(required)</small></label>
+              <input type="date" id="announcement-expires" required />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" id="announcement-cancel" class="secondary-action">Cancel</button>
+            <button type="submit" class="primary-action">Save</button>
+          </div>
+        </form>
+
+        <div id="announcements-message" class="hidden message" role="status"></div>
+        <ul id="announcements-list" class="announcements-list" aria-label="All announcements"></ul>
       </div>
     </div>
 
