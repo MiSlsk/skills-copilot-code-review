@@ -31,6 +31,11 @@ A super simple FastAPI application that allows students to view and sign up for 
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
 | GET    | `/activities`                                                     | Get all activities with their details and current participant count |
 | POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| GET    | `/announcements`                                                  | Get currently active announcements (public)                         |
+| GET    | `/announcements/all?teacher_username=...`                         | List all announcements (signed-in users only)                       |
+| POST   | `/announcements?teacher_username=...`                             | Create announcement; JSON body `message`, `start_date?`, `expires_at` |
+| PUT    | `/announcements/{id}?teacher_username=...`                        | Update an announcement (same body)                                  |
+| DELETE | `/announcements/{id}?teacher_username=...`                        | Delete an announcement                                              |
 
 ## Data Model
 
