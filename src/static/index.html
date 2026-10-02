@@ -12,9 +12,15 @@
     />
   </head>
   <body>
-    <aside class="announcement-banner" aria-label="Announcement">
-      📢 Activity registration is open until the end of the month. Don't lose your spot!
+    <aside class="announcement-banner" aria-label="Announcement" id="registration-announcement" hidden>
+      📢 Activity registration is open until December 31, 2025. Don't lose your spot!
     </aside>
+    <script>
+      const deadline = new Date("2025-12-31T23:59:59");
+      if (new Date() <= deadline) {
+        document.getElementById("registration-announcement").hidden = false;
+      }
+    </script>
     <header>
       <h1>Mergington High School</h1>
       <h2>Extracurricular Activities</h2>
